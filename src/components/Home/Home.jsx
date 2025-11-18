@@ -29,9 +29,11 @@ const formatValue = (num, originalStr) => {
 }
 
 // Componente para cada card de métrica com animação de contagem
-const MetricCard = ({ icon: Icon, value, label }) => {
+const MetricCard = ({ icon: Icon, value, label, index }) => {
   const endValue = parseValue(value)
-  const [count, countRef] = useCountUp(endValue, 2000, true)
+  // Adiciona um delay baseado no index para criar efeito cascata
+  const delay = index * 200 // 200ms de delay entre cada card
+  const [count, countRef] = useCountUp(endValue, 2000, true, delay)
   const displayValue = formatValue(count, value)
 
   return (
@@ -102,6 +104,7 @@ const Home = () => {
                   icon={metric.icon}
                   value={metric.value}
                   label={metric.label}
+                  index={index}
                 />
               ))}
             </div>

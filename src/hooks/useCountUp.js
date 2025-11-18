@@ -5,9 +5,10 @@ import { useState, useEffect, useRef } from 'react'
  * @param {number} end - Valor final da contagem
  * @param {number} duration - Duração da animação em milissegundos
  * @param {boolean} startOnView - Se true, inicia a animação quando o elemento entra na viewport
+ * @param {number} additionalDelay - Delay adicional em milissegundos antes de iniciar a contagem
  * @returns {[number, React.Ref]} - [valor atual, ref do elemento]
  */
-export const useCountUp = (end, duration = 2000, startOnView = true) => {
+export const useCountUp = (end, duration = 2000, startOnView = true, additionalDelay = 0) => {
   const [count, setCount] = useState(0)
   const [hasStarted, setHasStarted] = useState(!startOnView)
   const elementRef = useRef(null)
@@ -57,13 +58,18 @@ export const useCountUp = (end, duration = 2000, startOnView = true) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !hasStarted) {
-            setHasStarted(true)
+            // Aguarda a animação de entrada terminar antes de começar a contagem
+            // A animação fadeInUp com delay-4s leva cerca de 1s para completar após aparecer
+            // Adiciona o delay adicional passado como parâmetro
+            setTimeout(() => {
+              setHasStarted(true)
+            }, 800 + additionalDelay) // Delay base + delay adicional
             observer.unobserve(entry.target)
           }
         })
       },
       {
-        threshold: 0.1,
+        threshold: 0.5, // Elemento precisa estar 50% visível
         rootMargin: '0px'
       }
     )
@@ -75,7 +81,7 @@ export const useCountUp = (end, duration = 2000, startOnView = true) => {
         observer.unobserve(element)
       }
     }
-  }, [startOnView, hasStarted])
+  }, [startOnView, hasStarted, additionalDelay])
 
   return [count, elementRef]
 }
