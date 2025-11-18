@@ -43,11 +43,15 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .contactMethods {
   width: 100%;
   min-width: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .methodsTitle {
@@ -81,7 +85,9 @@
   justify-content: center;
   width: 100%;
   box-sizing: border-box;
-  overflow: visible;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
 .methodCard:hover {
@@ -126,6 +132,8 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   width: 100%;
   min-width: 0;
+  position: relative;
+  z-index: 2;
 }
 
 .formGroup {
@@ -235,29 +243,38 @@
   .contactContent {
     grid-template-columns: 1fr 1.5fr;
     align-items: start;
+    gap: var(--spacing-xl);
   }
 
   .contactMethods {
     grid-column: 1 / 2;
+    grid-row: 1;
+    width: 100%;
+    position: relative;
+    z-index: 1;
   }
 
   .contactForm {
     grid-column: 2 / 3;
+    grid-row: 1;
+    width: 100%;
+    position: relative;
+    z-index: 2;
   }
+  
   .methodsGrid {
-    grid-template-columns: repeat(3, minmax(250px, 1fr));
-    grid-auto-columns: min-content;
+    grid-template-columns: 1fr;
     gap: var(--spacing-md);
     width: 100%;
   }
   
   .methodCard {
-    min-width: 250px;
+    min-width: 0;
     width: 100%;
     box-sizing: border-box;
     padding: var(--spacing-lg);
     min-height: 200px;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .sectionTitle {
@@ -286,19 +303,18 @@
 
 @media (min-width: 1024px) {
   .methodsGrid {
-    grid-template-columns: repeat(3, minmax(280px, 1fr));
-    grid-auto-columns: min-content;
-    gap: var(--spacing-lg);
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
     width: 100%;
   }
 
   .methodCard {
     padding: var(--spacing-xl);
     min-height: 220px;
-    min-width: 280px;
+    min-width: 0;
     width: 100%;
     box-sizing: border-box;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .methodIcon {

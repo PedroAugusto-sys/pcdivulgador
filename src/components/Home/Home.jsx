@@ -2,9 +2,51 @@ import { Link } from 'react-router-dom'
 import { FaChartLine, FaUsers, FaTrophy, FaMusic } from 'react-icons/fa'
 import profileImage from '../../assets/profile.jpg'
 import Testimonials from './Testimonials'
+import { useCountUp } from '../../hooks/useCountUp'
 import styles from './Home.module.css'
 
+// Função para converter valores como '50M+', '200+', '500K+' em números
+const parseValue = (valueStr) => {
+  const str = valueStr.replace(/[^0-9MK]/g, '')
+  if (str.includes('M')) {
+    return parseFloat(str.replace('M', '')) * 1000000
+  } else if (str.includes('K')) {
+    return parseFloat(str.replace('K', '')) * 1000
+  } else {
+    return parseFloat(str)
+  }
+}
+
+// Função para formatar o número de volta para o formato original
+const formatValue = (num, originalStr) => {
+  if (originalStr.includes('M')) {
+    return (num / 1000000).toFixed(0) + 'M+'
+  } else if (originalStr.includes('K')) {
+    return (num / 1000).toFixed(0) + 'K+'
+  } else {
+    return Math.floor(num) + '+'
+  }
+}
+
+// Componente para cada card de métrica com animação de contagem
+const MetricCard = ({ icon: Icon, value, label }) => {
+  const endValue = parseValue(value)
+  const [count, countRef] = useCountUp(endValue, 2000, true)
+  const displayValue = formatValue(count, value)
+
+  return (
+    <div className={styles.metricCard} ref={countRef}>
+      <div className={styles.metricIcon}>
+        <Icon />
+      </div>
+      <div className={styles.metricValue}>{displayValue}</div>
+      <div className={styles.metricLabel}>{label}</div>
+    </div>
+  )
+}
+
 const Home = () => {
+
   const metrics = [
     { icon: FaChartLine, value: '50M+', label: 'Streams Totais' },
     { icon: FaUsers, value: '200+', label: 'Artistas Atendidos' },
@@ -54,18 +96,14 @@ const Home = () => {
 
           <div className={`${styles.metricsSection} animate__animated animate__fadeInUp animate__delay-4s`}>
             <div className={styles.metricsGrid}>
-              {metrics.map((metric, index) => {
-                const Icon = metric.icon
-                return (
-                  <div key={index} className={styles.metricCard}>
-                    <div className={styles.metricIcon}>
-                      <Icon />
-                    </div>
-                    <div className={styles.metricValue}>{metric.value}</div>
-                    <div className={styles.metricLabel}>{metric.label}</div>
-                  </div>
-                )
-              })}
+              {metrics.map((metric, index) => (
+                <MetricCard
+                  key={index}
+                  icon={metric.icon}
+                  value={metric.value}
+                  label={metric.label}
+                />
+              ))}
             </div>
           </div>
         </div>
