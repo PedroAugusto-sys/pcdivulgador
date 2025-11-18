@@ -9,8 +9,8 @@ const Contact = () => {
     message: ''
   })
   const [errors, setErrors] = useState({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -29,49 +29,56 @@ const Contact = () => {
 
   const validate = () => {
     const newErrors = {}
-
+    
     if (!formData.name.trim()) {
       newErrors.name = 'Nome é obrigatório'
     }
-
+    
     if (!formData.email.trim()) {
       newErrors.email = 'Email é obrigatório'
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Email inválido'
     }
-
+    
     if (!formData.message.trim()) {
       newErrors.message = 'Mensagem é obrigatória'
     } else if (formData.message.trim().length < 10) {
       newErrors.message = 'Mensagem deve ter pelo menos 10 caracteres'
     }
-
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
+    
+    return newErrors
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     
-    if (!validate()) {
+    const validationErrors = validate()
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors)
       return
     }
-
+    
     setIsSubmitting(true)
     setSubmitStatus(null)
-
-    // Simular envio do formulário
-    // Em produção, aqui você faria uma chamada à API
-    setTimeout(() => {
-      setIsSubmitting(false)
+    
+    // Simular envio (substituir por integração real com API/Email)
+    try {
+      // Aqui você pode integrar com um serviço de email como EmailJS, Formspree, etc.
+      await new Promise(resolve => setTimeout(resolve, 1500))
+      
       setSubmitStatus('success')
       setFormData({ name: '', email: '', message: '' })
+      setErrors({})
       
       // Limpar mensagem de sucesso após 5 segundos
       setTimeout(() => {
         setSubmitStatus(null)
       }, 5000)
-    }, 1000)
+    } catch (error) {
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -82,11 +89,11 @@ const Contact = () => {
             Entre em Contato
           </h2>
           <p className={`${styles.ctaText} animate__animated animate__fadeInUp animate__delay-1s`}>
-            Pronto para Confiar no seu próximo projeto?
+            Pronto para transformar seu próximo projeto em sucesso?
           </p>
           <p className={`${styles.sectionSubtitle} animate__animated animate__fadeInUp animate__delay-2s`}>
             Estou aqui para ajudar a transformar sua ideia em realidade. Entre em contato através 
-            do formulário abaixo ou pelas redes sociais.
+            das redes sociais abaixo ou preencha o formulário.
           </p>
         </div>
 
@@ -187,6 +194,12 @@ const Contact = () => {
             {submitStatus === 'success' && (
               <div className={`${styles.successMessage} animate__animated animate__fadeIn`}>
                 Mensagem enviada com sucesso! Entrarei em contato em breve.
+              </div>
+            )}
+
+            {submitStatus === 'error' && (
+              <div className={`${styles.errorMessage} animate__animated animate__fadeIn`}>
+                Erro ao enviar mensagem. Tente novamente ou entre em contato diretamente.
               </div>
             )}
 

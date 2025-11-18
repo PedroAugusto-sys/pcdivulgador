@@ -97,6 +97,9 @@
   border-radius: 5px;
   transform: translateY(20px);
   transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
 }
 
 .projectCard:hover .viewMore {
@@ -133,6 +136,54 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  margin-bottom: var(--spacing-sm);
+}
+
+.projectMetrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--color-bg-light);
+}
+
+.metricItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  background-color: var(--color-bg-light);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: 6px;
+  flex: 1;
+  min-width: calc(50% - var(--spacing-xs));
+}
+
+.metricIcon {
+  font-size: 1rem;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.metricContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.metricValue {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.metricLabel {
+  font-size: 0.7rem;
+  color: var(--color-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1;
 }
 
 @media (min-width: 768px) {
