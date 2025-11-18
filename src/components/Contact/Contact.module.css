@@ -81,6 +81,7 @@
   justify-content: center;
   width: 100%;
   box-sizing: border-box;
+  overflow: visible;
 }
 
 .methodCard:hover {
@@ -115,7 +116,6 @@
   white-space: nowrap;
   line-height: 1.5;
   width: auto;
-  max-width: 100%;
   display: inline-block;
 }
 
@@ -241,17 +241,19 @@
   }
 
   .methodsGrid {
-    grid-template-columns: repeat(3, minmax(200px, 1fr));
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+    grid-auto-columns: min-content;
     gap: var(--spacing-md);
     width: 100%;
   }
   
   .methodCard {
-    min-width: 200px;
+    min-width: 250px;
     width: 100%;
     box-sizing: border-box;
     padding: var(--spacing-lg);
     min-height: 200px;
+    overflow: visible;
   }
 
   .sectionTitle {
@@ -274,14 +276,14 @@
     font-size: 0.85rem;
     white-space: nowrap;
     width: auto;
-    max-width: 100%;
     display: inline-block;
   }
 }
 
 @media (min-width: 1024px) {
   .methodsGrid {
-    grid-template-columns: repeat(3, minmax(220px, 1fr));
+    grid-template-columns: repeat(3, minmax(280px, 1fr));
+    grid-auto-columns: min-content;
     gap: var(--spacing-lg);
     width: 100%;
   }
@@ -289,9 +291,10 @@
   .methodCard {
     padding: var(--spacing-xl);
     min-height: 220px;
-    min-width: 220px;
+    min-width: 280px;
     width: 100%;
     box-sizing: border-box;
+    overflow: visible;
   }
 
   .methodIcon {
@@ -308,7 +311,6 @@
     font-size: 0.9rem;
     white-space: nowrap;
     width: auto;
-    max-width: 100%;
     display: inline-block;
   }
 }
