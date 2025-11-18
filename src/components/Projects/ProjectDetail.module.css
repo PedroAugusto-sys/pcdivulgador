@@ -176,13 +176,13 @@
   font-weight: 600;
   text-decoration: none;
   transition: var(--transition);
-  box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+  box-shadow: 0 4px 15px rgba(191, 164, 140, 0.3);
 }
 
 .ctaButton:hover {
-  background-color: #e67e22;
+  background-color: #a8907a;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4);
+  box-shadow: 0 6px 20px rgba(191, 164, 140, 0.4);
 }
 
 .ctaButton:active {
